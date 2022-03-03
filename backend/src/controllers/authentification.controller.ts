@@ -12,15 +12,13 @@ export class AuthentificationController{
 
         let jwt_secret_key =process.env.JWT_SECRET_KEY as string;
 
-
         let token = req.headers.authorization as string;
-        jwt.verify(token,jwt_secret_key,
-            async(error:any,data:any)=>{
+        jwt.verify(token,jwt_secret_key,async(error:any,data:any)=>{
 
                 if(error){
                     return res.send({
-                        data:error,
-                        received:false,
+                        data: error,
+                        received: false,
                     });
                 }
                 return res.send({

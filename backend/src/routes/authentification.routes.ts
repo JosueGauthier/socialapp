@@ -4,7 +4,7 @@ import { AuthentificationController } from "../controllers/authentification.cont
 
 const authrouter = Router();
 
-authrouter.get("/posts", AuthentificationController.signup);
+authrouter.get("/posts", AuthentificationController.showposts);
 authrouter.post("/signup", AuthentificationController.signup);
 
 export {authrouter};
