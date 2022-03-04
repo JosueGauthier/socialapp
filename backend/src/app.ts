@@ -1,26 +1,33 @@
 //console.log("This thing is working V");
 
 import express from "express";
+import { Connection, ConnectionOptions, createConnection } from "typeorm";
 import { authrouter } from "./routes/authentification.routes";
+import config from "./ormconfig"
+import "reflect-metadata"
 
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.set("port",port);
-app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+createConnection(config as ConnectionOptions).then(async(connection) =>{
 
-app.use("/user",authrouter);
+    if (connection.isConnected){
 
-app.get("/", (req,res) =>{
+        console.log(`🐘 is connected`);
 
-    res.send({
-        data: "the social rebuild API"
+    }
+
+    app.set("port",port);
+    app.use(express.json());
+    app.use(express.urlencoded({extended:false}));
+    app.use("/user",authrouter);
+    app.get("/", (req,res) =>{
+        res.send({
+            data: "the social rebuild API"
+        });
     });
-
+    app.listen(app.get("port"), () => {
+        console.log(`🚀 is rocking over http://localhost:${app.get("port")}`);
+    });
 });
 
-app.listen(app.get("port"), () => {
-    console.log(`🚀 is rocking over http://localhost:${app.get("port")}`);
-
-})
