@@ -32,22 +32,35 @@ export class AuthentificationController{
 
     }
 
-    static async signup(req : Request,res : Response) {
+    static validateEmail(useremail :string):boolean{
+
+        let isEmailValid = EmailValidator.validate(useremail);
+        return isEmailValid;
+
+        
+
+    }
+
+    static async createNewAccount(req : Request,res : Response) {
 
         let {username, useremail, userpassword} = req.body;
 
         let jwt_secret_key =process.env.JWT_SECRET_KEY as string;
 
-        let isEmailValid = EmailValidator.validate(useremail);
-        if(!isEmailValid){
+        if(!AuthentificationController.validateEmail){
 
             return res.send({
-                data:"Provide valid email",
-                authentification:false,
+
+                authentificated :false,
+                message : "Enter valid email",
 
             });
 
         }
+
+
+
+        
 
         jwt.sign(
             {
