@@ -34,6 +34,30 @@ export class UserRepository extends Repository<UserEntity>{
 
         }).execute()
 
+    }
+
+    async findUserPassword(
+        req:Request, 
+        res:Response, 
+        useremail:string
+        ) : Promise<any>{
+
+
+        let getbaseuserpassword = await this.createQueryBuilder("users")
+        .select("users.userpassword")
+        .where("users.useremail = :useremail",{useremail,})
+        .getOne();
+
+        if (getbaseuserpassword === undefined){
+            return res.send({
+                message:"User not found",
+                authentificated : false,
+            });
+
+        }
+        return getbaseuserpassword;
+
+
 
 
 

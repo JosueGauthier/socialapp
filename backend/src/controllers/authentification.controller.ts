@@ -28,7 +28,7 @@ export class AuthentificationController{
                 return res.send({
                     posts:"List of Posts",
                     userdata:data,
-                })
+                });
                  
 
             });
@@ -115,5 +115,87 @@ export class AuthentificationController{
 
         
         
+    }
+
+    //! Login process
+
+    static async login(req : Request,res : Response) {
+
+        let jwt_secret_key =process.env.JWT_SECRET_KEY as string;
+
+        let {useremail, userpassword} = req.body;
+
+        if(!AuthentificationController.validateEmail){
+
+            return res.send({
+
+                authentificated :false,
+                message : "Enter valid email",
+
+            });
+
+        }
+
+        //! check user data
+        let userRepository = getCustomRepository(UserRepository);
+        let userdata =  await userRepository.findUserPassword(req,res,useremail);
+        let basePassword = userdata!.userpassword!;
+
+
+        //! Compare passwords
+
+        bcrypt.compare(userpassword,basePassword, async(error:any,result:any) =>{
+
+            //! Callback
+            if(error){
+                return res.send({
+                    message:error,
+                    authentification:false,
+                });
+            }
+
+            if(!result){
+
+                return res.send({
+
+                    message: "Wrong password",
+                    authentification : false,
+
+                }); 
+            }
+
+            jwt.sign(
+                {
+                    useremail, //! Payload
+                },
+                jwt_secret_key, //! Secret key
+                {
+                    expiresIn:"1h", //! Expiration time
+                },
+                async(error: any, data:any) =>{
+                    //! Callback
+                    if(error){
+                        return res.send({
+                            message:error,
+                            authentification:false,
+                        });
+                    }
+                    return res.send({
+                        data:data,
+                        authentification:true,
+    
+                });
+    
+            }
+            
+                );
+            
+            
+
+
+        })
+
+        
+
     }
 }

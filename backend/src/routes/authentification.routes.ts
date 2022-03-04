@@ -9,4 +9,6 @@ const authrouter = Router();
 
 authrouter.post("/signup", AuthentificationController.createNewAccount);
 
+authrouter.post("/login", AuthentificationController.login);
+
 export {authrouter};
