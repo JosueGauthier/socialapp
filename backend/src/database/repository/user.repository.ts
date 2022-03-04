@@ -6,9 +6,9 @@ import { Request,Response } from "express";
 
 export class UserRepository extends Repository<UserEntity>{
 
-    async saveUserData(req:Request, res:Response){
+    async saveUserData(req:Request, res:Response, hashedPassword:any){
 
-        let {username, useremail, userpassword} = req.body;
+        let {username, useremail} = req.body;
 
         let checkIfUserExists = (await this.createQueryBuilder("users")
         .select()
@@ -29,7 +29,7 @@ export class UserRepository extends Repository<UserEntity>{
         this.createQueryBuilder("users").insert().values({
 
             useremail,
-            userpassword,
+            userpassword : hashedPassword,
             username,
 
         }).execute()
