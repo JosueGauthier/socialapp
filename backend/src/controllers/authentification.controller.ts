@@ -2,7 +2,11 @@ import {Request,Response} from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
+import bcrypt from "bcrypt";
+
 import * as EmailValidator from "email-validator";
+import { getCustomRepository } from "typeorm";
+import { UserRepository } from "../database/repository/user.repository";
 
 dotenv.config();
 
@@ -58,35 +62,58 @@ export class AuthentificationController{
 
         }
 
+        let salt = await bcrypt.genSalt(10);
+        bcrypt.hash(userpassword,salt, async (error:any,hashedPassword:any) =>{
 
-
-        
-
-        jwt.sign(
-            {
-                useremail, //! Payload
-            },
-            jwt_secret_key, //! Secret key
-            {
-                expiresIn:"1h", //! Expiration time
-            },
-            async(error: any, data:any) =>{
-                //! Callback
-                if(error){
-                    return res.send({
-                        data:error,
-                        authentification:false,
-                    });
-                }
+            //! Callback
+            if(error){
                 return res.send({
-                    data:data,
-                    authentification:true,
+                    message:error,
+                    authentification:false,
+                });
+            }
 
-            });
+            //! Saving user data first
+            let userRepository = getCustomRepository(UserRepository)
+            await userRepository.saveUserData(req,res,hashedPassword);
 
-        }
+
+            //Sending a JWT
+            jwt.sign(
+                {
+                    useremail, //! Payload
+                },
+                jwt_secret_key, //! Secret key
+                {
+                    expiresIn:"1h", //! Expiration time
+                },
+                async(error: any, data:any) =>{
+                    //! Callback
+                    if(error){
+                        return res.send({
+                            message:error,
+                            authentification:false,
+                        });
+                    }
+                    return res.send({
+                        data:data,
+                        authentification:true,
+    
+                });
+    
+            }
+            
+                );
+
+            
+        });
+
+
+
+
         
-            );
+
+        
         
     }
 }
