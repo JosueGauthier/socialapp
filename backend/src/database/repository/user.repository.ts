@@ -20,6 +20,7 @@ export class UserRepository extends Repository<UserEntity>{
         if (checkIfUserExists) {
             return res.send({
 
+                code : 403, //! invalid request user still exist
                 authentificated :false,
                 message : "User already exists"
 
@@ -50,6 +51,7 @@ export class UserRepository extends Repository<UserEntity>{
 
         if (getbaseuserpassword === undefined){
             return res.send({
+                code : 403, //! invalid request 
                 message:"User not found",
                 authenticated : false,
             });

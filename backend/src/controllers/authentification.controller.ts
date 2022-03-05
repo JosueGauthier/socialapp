@@ -55,6 +55,8 @@ export class AuthentificationController{
 
             return res.send({
 
+                code : 402, //! Invalid email
+
                 authentificated :false,
                 message : "Enter valid email",
 
@@ -68,6 +70,7 @@ export class AuthentificationController{
             //! Callback
             if(error){
                 return res.send({
+                    code : 401, //! General error
                     message:error,
                     authentification:false,
                 });
@@ -91,12 +94,14 @@ export class AuthentificationController{
                     //! Callback
                     if(error){
                         return res.send({
-                            message:error,
+                            code : 401, //!  General error
+                            message:"Something went wrong, try again",
                             authentification:false,
                         });
                     }
                     return res.send({
-                        data:data,
+                        code : 201, //! request ok
+                        message :data,
                         authentification:true,
     
                 });
@@ -157,16 +162,16 @@ export class AuthentificationController{
             basePassword,
             async(error:any,result:any) =>{
                 if(error){
-
                     console.log("\n\n ERROR \n\n");
 
                     return res.send({
 
-                        message: "Wrong password",
+                        code : 401,
+                        message: "Something went wrong",
                         authentication : false,
     
                     });
-                    
+
 
             
                 }
@@ -175,6 +180,8 @@ export class AuthentificationController{
 
                 return res.send({
 
+
+                    code : 407, //! wrong password
                     message: "Wrong password",
                     authentication : false,
 
@@ -196,12 +203,14 @@ export class AuthentificationController{
                     //! Callback
                     if(error){
                         return res.send({
+                            code : 401, //! generl error
                             message: error,
                             authentication:false,
                         });
                     }
                     return res.send({
-                        data:data,
+                        code : 201, //! request ok
+                        message :data,
                         authentication:true,
     
                 });
