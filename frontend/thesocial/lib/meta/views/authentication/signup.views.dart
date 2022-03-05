@@ -62,6 +62,20 @@ class SignupView extends StatelessWidget {
 
                     },
                   ),
+                  _userimage!.isNotEmpty
+                      ? Container(
+                    // si _userimage non vide non vide
+                    height: 100,
+                    width: 100,
+                    child: Image.network(utilityNotifier.userimage!),
+
+
+
+
+                  )
+                      : Container( // si userimage vide vide
+                    height: 0,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),

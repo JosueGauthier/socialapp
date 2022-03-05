@@ -1,18 +1,14 @@
-import 'dart:convert';
 
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thesocial/app/credentials/cloudinary.credentials.dart';
-import 'package:thesocial/app/routes/app.routes.dart';
-import 'package:thesocial/core/api/authentification.api.dart';
-import 'package:thesocial/core/services/cach.services.dart';
 import 'package:thesocial/meta/utils/pick.image.utils.dart';
 import 'package:thesocial/meta/utils/snackbar.dart';
 
 class UtilityNotifier extends ChangeNotifier {
 
-  String? _userimage;
+  String? _userimage ="";
   String? get userimage => _userimage;
 
 
