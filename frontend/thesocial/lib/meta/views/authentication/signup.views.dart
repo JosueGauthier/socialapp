@@ -1,5 +1,4 @@
-import 'dart:ffi';
-import 'dart:math';
+
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +52,7 @@ class SignupView extends StatelessWidget {
                     onPressed: (){
 
                       authenticationNotifier.signup(
+                          context: context,
                           name: namecontroller.text,
                           password: passwordcontroller.text,
                           email: emailcontroller.text);

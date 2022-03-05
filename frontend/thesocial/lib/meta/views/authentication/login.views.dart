@@ -44,7 +44,10 @@ class LoginView extends StatelessWidget {
                 color: Colors.redAccent,
                 onPressed: (){
 
-                  authenticationNotifier.login(password: passwordcontroller.text, email: emailcontroller.text);
+                  authenticationNotifier.login(
+                      context: context,
+                      password: passwordcontroller.text,
+                      email: emailcontroller.text);
 
                   
                 },
