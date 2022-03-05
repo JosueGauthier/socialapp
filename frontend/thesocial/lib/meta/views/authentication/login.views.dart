@@ -31,7 +31,7 @@ class LoginView extends StatelessWidget {
           const MaterialButton(
             child: Text("login"),
             onPressed: null,
-            color: Colors.red,
+            color: Colors.white,
           ),
         ],
       )),
