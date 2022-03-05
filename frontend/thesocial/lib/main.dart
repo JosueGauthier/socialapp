@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thesocial/app/routes/app.routes.dart';
-import 'package:thesocial/meta/views/authentication/login.views.dart';
-import 'package:thesocial/meta/views/authentication/signup.views.dart';
-import 'package:thesocial/meta/views/deciderview/deciderview.dart';
 
 import 'app/providers/provider.dart';
 
@@ -17,8 +14,10 @@ class Core extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: providers,
-    child: Lava(),);
+    return MultiProvider(
+      providers: providers,
+      child: Lava(),
+    );
   }
 }
 
@@ -37,4 +36,3 @@ class Lava extends StatelessWidget {
     );
   }
 }
-

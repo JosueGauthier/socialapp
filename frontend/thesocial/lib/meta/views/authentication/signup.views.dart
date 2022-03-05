@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thesocial/app/routes/app.routes.dart';
 import 'package:thesocial/core/notifier/authentification.notifier.dart';
+import 'package:thesocial/core/notifier/utility.notifier.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({Key? key}) : super(key: key);
@@ -14,6 +15,11 @@ class SignupView extends StatelessWidget {
     final emailcontroller = TextEditingController();
     final passwordcontroller = TextEditingController();
     var authenticationNotifier = Provider.of<AuthenticationNotifier>(context, listen: false);
+
+
+    var utilityNotifier = Provider.of<UtilityNotifier>(context, listen: false);
+    var _userimage = Provider.of<UtilityNotifier>(context, listen: true).userimage;
+
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -42,6 +48,19 @@ class SignupView extends StatelessWidget {
                   TextField(
                     controller: passwordcontroller,
                     decoration: InputDecoration(hintText: "Enter a new password"),
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  MaterialButton(
+                    child: Text("Upload image"),
+                    color: Colors.redAccent,
+                    onPressed: (){
+
+                      utilityNotifier.uploadUserImage(context: context);
+
+                    },
                   ),
                   const SizedBox(
                     height: 10,

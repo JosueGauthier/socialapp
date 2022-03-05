@@ -1,4 +1,3 @@
-class APIroutes{
-
-  static final BaseURL = "http://10.0.2.2:8010";
+class APIroutes {
+  static final BaseURL = "http://10.0.2.2:8000";
 }
