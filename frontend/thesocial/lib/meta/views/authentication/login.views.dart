@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:thesocial/app/routes/app.routes.dart';
+
+import '../../../core/notifier/authentification.notifier.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -10,6 +13,8 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     final emailcontroller = TextEditingController();
     final passwordcontroller = TextEditingController();
+    var authenticationNotifier = Provider.of<AuthenticationNotifier>(context, listen: false);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Login view"),
@@ -37,7 +42,12 @@ class LoginView extends StatelessWidget {
               MaterialButton(
                 child: Text("login"),
                 color: Colors.redAccent,
-                onPressed: (){},
+                onPressed: (){
+
+                  authenticationNotifier.login(password: passwordcontroller.text, email: emailcontroller.text);
+
+                  
+                },
               ),
               const SizedBox(
                 height: 10,

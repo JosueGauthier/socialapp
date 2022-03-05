@@ -2,7 +2,9 @@ import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:thesocial/app/routes/app.routes.dart';
+import 'package:thesocial/core/notifier/authentification.notifier.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class SignupView extends StatelessWidget {
     final namecontroller = TextEditingController();
     final emailcontroller = TextEditingController();
     final passwordcontroller = TextEditingController();
+    var authenticationNotifier = Provider.of<AuthenticationNotifier>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -47,7 +50,13 @@ class SignupView extends StatelessWidget {
                   MaterialButton(
                     child: Text("Sign up"),
                     color: Colors.redAccent,
-                    onPressed: (){},
+                    onPressed: (){
+
+                      authenticationNotifier.signup(
+                          name: namecontroller.text,
+                          password: passwordcontroller.text,
+                          email: emailcontroller.text);
+                    },
                   ),
                   const SizedBox(
                     height: 10,
