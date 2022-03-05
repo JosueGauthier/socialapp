@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:thesocial/app/routes/app.routes.dart';
 import 'package:thesocial/meta/views/authentication/login.views.dart';
+import 'package:thesocial/meta/views/authentication/signup.views.dart';
 
 void main() {
   runApp(const Core());
@@ -16,7 +18,8 @@ class Core extends StatelessWidget {
       title: 'Social app',
       //theme: ThemeData(primarySwatch: Colors.blue,),
       theme: ThemeData.dark(),
-      home: LoginView(),
+      initialRoute : LoginRoute,
+      routes: routes,
     );
   }
 }
