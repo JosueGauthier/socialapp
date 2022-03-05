@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:thesocial/app/routes/app.routes.dart';
 import 'package:thesocial/meta/views/authentication/login.views.dart';
 import 'package:thesocial/meta/views/authentication/signup.views.dart';
+import 'package:thesocial/meta/views/deciderview/deciderview.dart';
 
 import 'app/providers/provider.dart';
 
@@ -31,7 +32,7 @@ class Lava extends StatelessWidget {
       title: 'Social app',
       //theme: ThemeData(primarySwatch: Colors.blue,),
       theme: ThemeData.dark(),
-      initialRoute: LoginRoute,
+      initialRoute: DeciderRoute,
       routes: routes,
     );
   }
