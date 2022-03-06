@@ -52,7 +52,7 @@ export class AuthentificationController{
 
         let jwt_secret_key =process.env.JWT_SECRET_KEY as string;
 
-        if(!AuthentificationController.validateEmail){
+        if(!AuthentificationController.validateEmail(useremail)){
 
             return res.send({
 
@@ -133,7 +133,7 @@ export class AuthentificationController{
         let jwt_secret_key =process.env.JWT_SECRET_KEY as string;
 
         
-        if(!AuthentificationController.validateEmail){
+        if(!AuthentificationController.validateEmail(useremail)){
 
             return res.send({
 

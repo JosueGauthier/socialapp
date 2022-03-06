@@ -1,5 +1,6 @@
 import { join } from "path";
 import {ConnectionOptions } from "typeorm";
+import { PostEntity } from "./database/entity/post.entity";
 import { UserEntity } from "./database/entity/user.entity";
 
 const connectionOptions : ConnectionOptions = {
@@ -9,8 +10,8 @@ const connectionOptions : ConnectionOptions = {
     port: 5432,
     username:"postgres",
     password:"14021999",
-    database:"postgres",
-    entities: [UserEntity],
+    database:"thesocial",
+    entities: [UserEntity,PostEntity],
     synchronize:true,
     dropSchema:false,
     migrationsRun:true,
