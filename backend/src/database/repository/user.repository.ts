@@ -8,7 +8,7 @@ export class UserRepository extends Repository<UserEntity>{
 
     async saveUserData(req:Request, res:Response, hashedPassword:any){
 
-        let {username, useremail} = req.body;
+        let {username, useremail, userimage} = req.body;
 
         let checkIfUserExists = (await this.createQueryBuilder("users")
         .select()
@@ -32,6 +32,7 @@ export class UserRepository extends Repository<UserEntity>{
             useremail,
             userpassword : hashedPassword,
             username,
+            userimage,
 
         }).execute()
 
@@ -51,7 +52,7 @@ export class UserRepository extends Repository<UserEntity>{
 
         if (getbaseuserpassword === undefined){
             return res.send({
-                code : 403, //! invalid request 
+                code : 403, //! invalid request
                 message:"User not found",
                 authenticated : false,
             });

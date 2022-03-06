@@ -25,6 +25,11 @@ export class UserEntity extends BaseEntity{
     })
     userpassword!: string;
 
+    @Column({
+        nullable:true,
+    })
+    userimage!: string;
+
 
 }
 

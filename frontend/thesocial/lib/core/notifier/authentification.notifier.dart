@@ -11,14 +11,18 @@ class AuthenticationNotifier extends ChangeNotifier {
   final CacheService cacheService = new CacheService();
 
   Future signup({
-    required String name,
-    required String password,
-    required String email,
+    required String username,
+    required String userpassword,
+    required String useremail,
     required BuildContext context,
+    required String userimage,
   }) async {
     try {
       var userData = await _authenticationAPI.signUp(
-          name: name, password: password, email: email);
+          username: username,
+          userpassword: userpassword,
+          useremail: useremail,
+          userimage: userimage);
 
       final Map<String, dynamic> parsedValue = await json.decode(userData);
       final userJWT = parsedValue['message'];
@@ -26,13 +30,13 @@ class AuthenticationNotifier extends ChangeNotifier {
       if (userCode == 201) {
         cacheService.writeCache(key: "jwt", value: userJWT);
         Navigator.of(context).pushNamed(HomeRoute);
-      }else{
-
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Something went wrong")));
-
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Something went wrong")));
       }
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Something went wrong")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Something went wrong")));
     }
   }
 
@@ -41,10 +45,9 @@ class AuthenticationNotifier extends ChangeNotifier {
     required String email,
     required BuildContext context,
   }) async {
-
     try {
-      var userData = await _authenticationAPI.login(
-          password: password, email: email);
+      var userData =
+          await _authenticationAPI.login(password: password, email: email);
 
       final Map<String, dynamic> parsedValue = await json.decode(userData);
       final userJWT = parsedValue['message'];
@@ -52,13 +55,13 @@ class AuthenticationNotifier extends ChangeNotifier {
       if (userCode == 201) {
         cacheService.writeCache(key: "jwt", value: userJWT);
         Navigator.of(context).pushNamed(HomeRoute);
-      }else{
-
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Something went wrong")));
-
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Something went wrong")));
       }
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Something went wrong")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Something went wrong")));
     }
     try {
       await _authenticationAPI.login(password: password, email: email);
