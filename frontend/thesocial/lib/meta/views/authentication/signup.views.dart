@@ -31,74 +31,78 @@ class SignupView extends StatelessWidget {
         ),
         body: Container(
           child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextField(
-                controller: emailcontroller,
-                decoration: InputDecoration(hintText: "Enter your email"),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextField(
-                controller: namecontroller,
-                decoration: InputDecoration(hintText: "Enter your username"),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextField(
-                controller: passwordcontroller,
-                decoration: InputDecoration(hintText: "Enter a new password"),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              MaterialButton(
-                child: Text("Upload image"),
-                color: Colors.redAccent,
-                onPressed: () {
-                  utilityNotifier.uploadUserImage(context: context);
-                },
-              ),
-              _userimage!.isNotEmpty
-                  ? Container(
-                      // si _userimage non vide non vide
-                      height: 100,
-                      width: 100,
-                      child: Image.network(utilityNotifier.userimage!),
-                    )
-                  : Container(
-                      // si userimage vide vide
-                      height: 0,
-                    ),
-              const SizedBox(
-                height: 10,
-              ),
-              MaterialButton(
-                child: Text("Sign up"),
-                color: Colors.redAccent,
-                onPressed: () {
-                  authenticationNotifier.signup(
-                      context: context,
-                      username: namecontroller.text,
-                      userpassword: passwordcontroller.text,
-                      useremail: emailcontroller.text,
-                      userimage: utilityNotifier.userimage!);
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(LoginRoute);
-                },
-                child: Text("Have an account ? Login up now !"),
-              ),
-            ],
+              child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: emailcontroller,
+                  decoration: InputDecoration(hintText: "Enter your email"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: namecontroller,
+                  decoration: InputDecoration(hintText: "Enter your username"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: passwordcontroller,
+                  decoration: InputDecoration(hintText: "Enter a new password"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MaterialButton(
+                  child: Text(utilityNotifier.userimage!.isEmpty
+                      ? "Upload image"
+                      : "Reselect"),
+                  color: Colors.redAccent,
+                  onPressed: () {
+                    utilityNotifier.uploadUserImage(context: context);
+                  },
+                ),
+                _userimage!.isNotEmpty
+                    ? Container(
+                        // si _userimage non vide non vide
+                        height: 100,
+                        width: 100,
+                        child: Image.network(utilityNotifier.userimage!),
+                      )
+                    : Container(
+                        // si userimage vide vide
+                        height: 0,
+                      ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MaterialButton(
+                  child: Text("Sign up"),
+                  color: Colors.redAccent,
+                  onPressed: () {
+                    authenticationNotifier.signup(
+                        context: context,
+                        username: namecontroller.text,
+                        userpassword: passwordcontroller.text,
+                        useremail: emailcontroller.text,
+                        userimage: utilityNotifier.userimage!);
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(LoginRoute);
+                  },
+                  child: Text("Have an account ? Login up now !"),
+                ),
+              ],
+            ),
           )),
         ));
   }
